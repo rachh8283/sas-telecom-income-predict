@@ -1,0 +1,20 @@
+ods noproctitle;
+ods graphics / imagemap=on;
+
+PROC glmselect data=MISLIB.TELCOEXTRA outdesign(addinputvars)=Work.reg_design;
+	CLASS region marital ed gender custcat / param=glm;
+	MODEL churn=age address region marital ed gender custcat / showpvalues 
+		selection=none;
+RUN;
+
+PROC reg data=Work.reg_design alpha=0.05 plots(only)=(diagnostics residuals 
+		observedbypredicted);
+	where region is not missing and marital is not missing and ed is not missing 
+		and gender is not missing and custcat is not missing;
+	ods select DiagnosticsPanel ResidualPlot ObservedByPredicted;
+	model churn=&_GLSMOD /;
+	run;
+quit;
+
+PROC delete data=Work.reg_design;
+run;
