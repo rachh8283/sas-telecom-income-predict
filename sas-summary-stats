@@ -1,0 +1,7 @@
+ods noproctitle;
+ods graphics / imagemap=on;
+
+proc means data=MISLIB.TELCOEXTRA chartype mean std min max median n var mode 
+		range vardef=df skewness qmethod=os;
+	var age address income ed custcat churn;
+run;
