@@ -5,3 +5,8 @@ proc means data=MISLIB.TELCOEXTRA chartype mean std min max median n var mode
 		range vardef=df skewness qmethod=os;
 	var age address income ed custcat churn;
 run;
+
+proc univariate data=MISLIB.TELCOEXTRA vardef=df noprint;
+	var age address income ed custcat churn;
+	histogram age address income ed custcat churn / normal(noprint);
+run;
