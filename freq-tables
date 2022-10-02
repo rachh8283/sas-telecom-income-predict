@@ -1,0 +1,3 @@
+proc freq data=MISLIB.TELCOEXTRA;
+	tables region marital gender / plots=(freqplot cumfreqplot);
+run;
